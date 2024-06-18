@@ -54,12 +54,15 @@ if os.path.exists(file_path):
     # Assign segments based on the concatenated scores
     data['Segmento'] = data.apply(reassign_segment, axis=1)
     
-    st.write("Datos con puntuaciones y segmentos:")
-    st.write(data.head())
+    # Filter data where 'Estado Gop' is 'VIGENTE'
+    data_vigente = data[data['Estado Gop'] == 'VIGENTE']
+    
+    st.write("Datos con puntuaciones, segmentos y Estado Gop 'VIGENTE':")
+    st.write(data_vigente.head())
     
     # Option to download the updated data
     output_file = 'analysis_anp_updated.xlsx'
-    data.to_excel(output_file, index=False)
+    data_vigente.to_excel(output_file, index=False)
     
     with open(output_file, "rb") as file:
         btn = st.download_button(
@@ -71,6 +74,3 @@ if os.path.exists(file_path):
 else:
     st.write("Asegúrate de que el archivo analysis_anp.xlsx esté en la carpeta 'data'.")
 
-    data = data['Estado Gop'] = "VIGENTE"
-    st.write("Datos Vigentes con segmentos:")
-    st.write(data.head())
