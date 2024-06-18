@@ -1,2 +1,5 @@
 streamlit-nightly
 pandas
+numpy
+openpyxl
+
